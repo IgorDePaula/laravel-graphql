@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class);
     }
+
+    public function getArticleCountAttribute()
+    {
+        return $this->articles()->count();
+    }
 }

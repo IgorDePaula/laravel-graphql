@@ -45,7 +45,7 @@ return [
 
     'route' => [
         'prefix' => '',
-        // 'middleware' => ['loghttp']
+        'middleware' => ['cors']
     ],
 
     /*
@@ -238,7 +238,7 @@ return [
          */
         'broadcasters' => [
             'log' => [
-                'driver' => 'log',
+                'driver' => 'redis',
             ],
             'pusher' => [
                 'driver' => 'pusher',

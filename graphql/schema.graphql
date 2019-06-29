@@ -1,8 +1,13 @@
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
 type User {
   id: ID!
   name: String!
   email: String!
   articles: [Article!]! @hasMany
+  articleCount: Int!
+  created_at: DateTime
+  articlelist: [ArticlePaginator!]
 }
 
 type Article {
@@ -11,6 +16,7 @@ type Article {
   content: String!
   author: User! @belongsTo(relation: "user")
 }
+
 type Query {
   user(id: ID! @eq): User @find
   users: [User!]! @paginate
@@ -22,6 +28,10 @@ type Query {
 type UserPaginator {
   paginatorInfo: PaginatorInfo!
   data: [User!]!
+}
+type ArticlePaginator {
+  paginatorInfo: PaginatorInfo!
+  data: [Article!]!
 }
 
 type PaginatorInfo {
@@ -47,7 +57,13 @@ type Mutation {
       password: String!
     ): String @field(resolver: "AuthMutator@resolve")
 
-  createArticle(title: String!, content: String!): Article
+  createArticle(title: String!, content: String!, author: ID!): Article
     @field(resolver: "ArticleMutator@create")
-    @middleware(checks: ["auth:api"])
+
+    @broadcast(subscription: "articleUpdated")
 }
+type Subscription {
+    articleUpdated(user: ID): Article
+}
+
+#import posts.graphql
