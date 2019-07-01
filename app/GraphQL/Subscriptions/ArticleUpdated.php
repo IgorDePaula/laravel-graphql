@@ -5,7 +5,7 @@ namespace App\GraphQL\Subscriptions;
 use Illuminate\Http\Request;
 use Nuwave\Lighthouse\Subscriptions\Subscriber;
 use Nuwave\Lighthouse\Schema\Types\GraphQLSubscription;
-
+use Log;
 class ArticleUpdated extends GraphQLSubscription
 {
     /**
@@ -27,8 +27,10 @@ class ArticleUpdated extends GraphQLSubscription
      * @param  mixed  $root
      * @return bool
      */
-    public function filter(Subscriber $subscriber, $root): bool
+    public function filter(Subscriber $subscriber, $root)
     {
-        // TODO implement filter
+        //Log::info(print_r($root,true));
+        //Log::info(print_r($subscriber,true));
+        return $subscriber;
     }
 }

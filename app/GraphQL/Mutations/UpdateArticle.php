@@ -5,7 +5,7 @@ namespace App\GraphQL\Mutations;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class ArticleMutator
+class UpdateArticle
 {
     /**
      * Return a value for the field.
@@ -16,11 +16,13 @@ class ArticleMutator
      * @param  \GraphQL\Type\Definition\ResolveInfo  $resolveInfo Information about the query itself, such as the execution state, the field name, path to the field from the root, and more.
      * @return mixed
      */
-    public function create($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
+    public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $article = new \App\Article($args);
+        $data = $args;
+        $data['user_id'] = $args['author'];
+        $article = new \App\Article($data);
         $article->save();
-        $context->user()->articles()->save($article);
+        //$context->user()->articles()->save($article);
 
         return $article;
     }

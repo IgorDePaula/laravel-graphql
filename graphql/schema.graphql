@@ -59,11 +59,15 @@ type Mutation {
 
   createArticle(title: String!, content: String!, author: ID!): Article
     @field(resolver: "ArticleMutator@create")
-
     @broadcast(subscription: "articleUpdated")
+
+  updateArticle(title: String!, content: String!, author: ID!): Article
+    @field(resolver: "UpdateArticle@resolve")
+    @broadcast(subscription: "articleUpdated")
+    @event(dispatch: "App\\Providers\\Message")
 }
 type Subscription {
-    articleUpdated(user: ID): Article
+    articleUpdated(id: ID): Article
 }
 
-#import posts.graphql
+#imports posts.graphql
