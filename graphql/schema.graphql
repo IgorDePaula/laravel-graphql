@@ -64,7 +64,6 @@ type Mutation {
   updateArticle(title: String!, content: String!, author: ID!): Article
     @field(resolver: "UpdateArticle@resolve")
     @broadcast(subscription: "articleUpdated")
-    @event(dispatch: "App\\Providers\\Message")
 }
 type Subscription {
     articleUpdated(id: ID): Article

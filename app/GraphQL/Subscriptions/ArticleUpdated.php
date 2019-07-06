@@ -31,6 +31,6 @@ class ArticleUpdated extends GraphQLSubscription
     {
         //Log::info(print_r($root,true));
         //Log::info(print_r($subscriber,true));
-        return $subscriber;
+        return true;
     }
 }

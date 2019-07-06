@@ -231,13 +231,16 @@ return [
         /*
          * Default subscription broadcaster.
          */
-        'broadcaster' => env('LIGHTHOUSE_BROADCASTER', 'pusher'),
+        'broadcaster' => env('LIGHTHOUSE_BROADCASTER', 'redis'),
 
         /*
          * Subscription broadcasting drivers with config options.
          */
         'broadcasters' => [
             'log' => [
+                'driver' => 'log',
+            ],
+            'redis' => [
                 'driver' => 'redis',
             ],
             'pusher' => [

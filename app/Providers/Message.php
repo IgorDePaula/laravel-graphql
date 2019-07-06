@@ -19,7 +19,7 @@ class Message implements ShouldBroadcast
     public function __construct($data)
     {
         $this->data = $data;
-        Log::info($data);
+        //Log::info($data);
     }
 
     /**
